@@ -1,4 +1,4 @@
-# blog-cms
+# blogCMS
 
 A simple blog content management system app where you can make, edit, and delete blog posts. Final project for CS602 Server Side Development, built with the MERN Stack
 
