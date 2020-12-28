@@ -1,0 +1,134 @@
+body {
+    color: #000;
+    /*background-color:#1a1c20;*/
+}
+
+.top-bar.utilityBar {
+    background-color: #000;
+    color: #fff;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    top: 0;
+    left: 0;
+}
+.top-bar.utilityBar ul {
+    background-color: #000;
+}
+.utilityBar a {
+    color: #fff;
+}
+.top-bar button {
+    vertical-align: center;
+}
+
+.top-bar.nav{
+    margin-top: 50px;
+    background-color: #fff;
+    padding: 20px 20px;
+    /*background-color: rgb(14, 14, 14);*/
+    
+}
+.top-bar.nav ul {
+    background-color: #fff;
+    /*background-color: rgb(14, 14, 14);*/
+}
+.nav a, .nav {
+    color: #000;
+}
+
+.wrapper {
+    /*background-color: #1a1c20;*/
+    padding-top: 3em;
+}
+.nav.menu-text {
+    /*font-size: 22px;*/
+    font-weight: 800;
+}
+.cell img {
+    background-size: cover;
+    height: 200px;
+    width: 100%;
+    border-radius: 5px;
+}
+.post:hover {
+    transform: translateY(-10px)
+}
+.card {
+    border: none;
+}
+.post {
+    background: none !important;
+    border: none !important;
+}
+.post .info {
+    color: #000;
+}
+.hero {
+    background-color: rgb(14, 14, 14);
+    color: #fff;
+    text-align: center;
+    height: 500px;
+    background-image: url("https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1052&q=80");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.hero .cell {
+    margin-top: 3em;
+}
+.cardWrapper .cell {
+    margin-top: 3em;
+}
+
+.content {
+    color: #000;
+}
+.tableWrapper {
+    margin-top: 70px;
+}
+.postsLister .title {
+    color: #000;
+    font-weight: 800;
+}
+.postsLister .update {
+    color: red;
+    cursor: pointer;
+}
+.postsLister .delete {
+    color: red;
+    cursor: pointer;
+}
+.actionWrapper {
+    margin-top: 70px;
+}
+.submitButton {
+    margin-right: 1em;
+}
+.actionWrapper h1 {
+    color: #000;
+}
+.detailInfo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2em;
+}
+.heroInner {
+    display: flex;
+    position: relative;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.heroOverlay {
+    padding: 3em;
+    width: 50%;
+    height: 60%;
+    border-radius: 5px;
+}
+.overlay {
+    position: absolute;
+    z-index: 1;
+    background: rgba(151, 151, 151, 0.67);
+}
+.tableWrapper h1 {color: #000;}
