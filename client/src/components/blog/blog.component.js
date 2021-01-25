@@ -1,15 +1,7 @@
 import React, {Component} from "react"
-import api from "../../api"
+import axios from "axios"
 import { Link } from 'react-router-dom'
-import Image from "react-random-image"
 
-class BlogDetail extends Component {
-    blogDetail = event => {
-        event.preventDefault()
-
-        //href = `/post`
-    }
-}
 
 function Post(props) {
 
@@ -18,7 +10,8 @@ function Post(props) {
             <Link to={"/post/"+props._id} className="card post">
             <div className="image">
                 {/*<img alt="blogPicture" src="https://images.unsplash.com/photo-1607340385476-7f47b5700026?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=701&q=80"></img>*/}
-                <Image width={1500} height={1000}/>
+                {/*<Image width={1500} height={1000}/>*/}
+                <img src={props.imagePath} alt="blog post immge"/>
             </div>
             <div className="card-section info">
                 <h4 className="title">{props.title}</h4>
@@ -39,14 +32,17 @@ export default class Blog extends Component {
         }
     }
 
-    componentDidMount = async () => {
+    componentDidMount() {
         this.setState({ isLoading: true })
 
-        await api.getAllPosts().then(posts => {
+        Promise.all([
+            axios.get("/admin")
+        ]).then(posts => {
             this.setState({
-                posts: posts.data.data,
                 isLoading: false,
+                posts: posts[0].data.posts
             })
+            //this.setState
         })
     }
 

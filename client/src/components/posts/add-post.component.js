@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
-import api from '../../api'
-
+import axios from "axios"
+import ImageUpload from "./util/image-upload.component"
 
 
 
 export default class AddPost extends Component {
-    
-
     constructor(props) {
         super(props)
 
         this.state = ({
             title: '',
             content: "",
+            imagePath: "",
             blurb: '',
             postBy: '',
         })
@@ -24,33 +23,71 @@ export default class AddPost extends Component {
         this.onSubmit = this.onSubmit.bind(this)
     }
 
-    onChangeContent = async event => {
+    componentDidMount() {
+        //let path = this.props.match.path
+        //let id = this.props.match.params.id
+    }
+
+    imageHandler = (id, value, isValid) => {
+        this.setState({imagePath: value})
+        console.log("valyue", value)
+        console.log("value name", value.name)
+    }
+
+    onChangeContent = (event) => {
         this.setState({
             content: event.target.value
         })
+        //console.log(event.target.value)
     }
 
-    onChangeTitle = async event => {
+    onChangeTitle = (event) => {
         this.setState({
             title: event.target.value
         })
     }
 
-    onChangeBlurb = async event => {
+    onChangeBlurb = (event) => {
         this.setState({
             blurb: event.target.value
         })
     }
 
-    onChangePostBy = async event => {
+    onChangePostBy = (event) => {
         this.setState({
             postBy: event.target.value
         })
     }
 
-    onSubmit = async event => {
+    onSubmit = (event) => {
         //console.log
         event.preventDefault()
+
+        let path = this.props.match.path
+        let id = this.props.match.params.id
+        let date = new Date()
+
+        const { title, blurb, imagePath, content, postBy } = this.state
+
+        let payload
+
+        if (typeof (this.state.imagePath) === "object") {
+            payload = new FormData()
+            payload.append("title", title)
+            payload.append("blurb", blurb)
+            payload.append("image", imagePath)
+            payload.append("content", content)
+            payload.append("postBy", postBy)
+        } else {
+            //payload = {title, blurb, imagePath, content, postBy}
+            payload = {
+                "title": title,
+                "blurb": blurb,
+                "image": imagePath,
+                "content": content,
+                "postBy": postBy
+            }
+        }
 
         console.log("Form submitted")
         console.log(this.state.title)
@@ -59,19 +96,20 @@ export default class AddPost extends Component {
 
         
 
-        const { title, blurb, content, postBy } = this.state
-        const payload = { title, blurb, content, postBy }
+        //const payload = { title, blurb, content, postBy }
 
-        await api.insertPost(payload).then(res => {''
-            console.log(res)
-            //window.alert(`Blog post added successfully`)
-            window.location.href = "/posts/list"
-            this.setState({
-                title: '',
-                content: "",
-                blurb: '',
-                postBy: '',
-            })
+        axios.post("/admin/post", payload).then(data => {
+            console.log(data)
+            window.alert(`Blog post added successfully`)
+            //window.location.href = "/posts/list"
+        }).catch(error => console.log(error))
+
+        this.setState({
+            title: '',
+            content: "",
+            imagePath: "",
+            blurb: '',
+            postBy: '',
         })
     }
 
@@ -100,6 +138,9 @@ export default class AddPost extends Component {
                         </div>
                         <div className="cell">
                             <input type="text" placeholder="Author Name" value={this.state.postBy} onChange={this.onChangePostBy} />
+                        </div>
+                        <div className="cell">
+                            <ImageUpload id="imagePath" name="imagePath" onInput={this.imageHandler} value={this.state.imagePath} errorText="Please provide an image" />
                         </div>
                         <div className="editorWrapper cell">
                             <textarea value={this.state.content} placeholder="Write Something!" onChange={this.onChangeContent}></textarea>

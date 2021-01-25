@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require("path")
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
@@ -11,12 +12,15 @@ const apiPort = 5000
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 app.use(bodyParser.json())
+const directory = path.join(__dirname, './images');
+app.use("/images", express.static(directory))
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 app.get('', (req, res) => {
     res.redirect('/blog')
 })
+
 
 app.use('/api', postRouter )
 

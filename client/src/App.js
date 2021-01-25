@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
+
 import NavBar from "./components/layout/navigation/navbar.component"
 import AddPost from "./components/posts/add-post.component"
 import EditPost from "./components/posts/edit-post.component"

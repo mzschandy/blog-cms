@@ -10,6 +10,9 @@ const Post = new Schema({
         type: String,
         required: true
     },
+    imagePath: {
+        type: String,
+    },
     blurb: {
         type: String
     },

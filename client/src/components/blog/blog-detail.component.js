@@ -1,5 +1,6 @@
 import React, {Component} from "react"
-import api from "../../api"
+//import api from "../../api"
+import axios from "axios"
 
 export default class BlogDetail extends Component {
     constructor(props) {
@@ -9,35 +10,43 @@ export default class BlogDetail extends Component {
             id: this.props.match.params.id,
             title: '',
             content: "",
+            imagePath: "",
             blurb: '',
             postBy: '',
         })
 
     }
 
-    componentDidMount = async () => {
+    componentDidMount() {
         //const { id } = this.state
-        const post = await api.getPostById(this.state.id)
+        //const post = await api.getPostById(this.state.id)
         //console.log("post", post)
         //console.log("id", id)
 
         //this.setState({isLoading: true})
 
-        this.setState({
-            title: post.data.data.title,
-            blurb: post.data.data.blurb,
-            content: post.data.data.content,
-            postBy: post.data.data.postBy,
+        axios.get("/admin/post/" + this.state.id).then(post => {
+            console.log(post)
+            this.setState({
+                title: post.data.title,
+                blurb: post.data.blurb,
+                imagePath: post.data.imagePath,
+                content: post.data.content,
+                postBy: post.data.postBy,
+            })
+        }).catch(error => {
+            console.log(error)
         })
+
+        
 
         //console.log
     }
 
     render() {
         
-        const { title, blurb, content, postBy } = this.state
-        console.log(title)
-        console.log(this.state.title)
+        const { title, blurb, imagePath, content, postBy } = this.state
+
         return(
             <div>
                 <div className="top-bar nav">
@@ -56,6 +65,7 @@ export default class BlogDetail extends Component {
                             <p>By <b>{postBy}</b></p>
                         </div>
                         <div className="grid-x">
+                            <img src={imagePath} alt="post"/>
                             <div>{content}</div>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import api from '../../api'
+import axios from "axios"
 
 class UpdatePost extends Component {
     updateUser = event => {
@@ -22,7 +22,7 @@ class DeletePost extends Component {
                 `Do you want to delete the post ${this.props.id} permanently?`,
             )
         ) {
-            api.deletePostById(this.props.id)
+            //api.deletePostById(this.props.id)
             window.location.reload()
         }
     }
@@ -49,18 +49,22 @@ class PostsList extends Component {
             posts: [],
             //columns: [],
             isLoading: false,
-        }
+        } 
     }
 
-    componentDidMount = async () => {
+    componentDidMount() {
         this.setState({ isLoading: true })
 
-        await api.getAllPosts().then(posts => {
+        Promise.all([
+            axios.get("/admin")
+        ]).then(posts => {
             this.setState({
-                posts: posts.data.data,
                 isLoading: false,
+                posts: posts[0].data.posts
             })
+            //this.setState
         })
+        //console.log(this)
     }
 
     render() {

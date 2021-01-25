@@ -1,5 +1,7 @@
+import Axios from 'axios'
 import React, { Component } from 'react'
-import api from '../../api'
+import ImageUpload from "./util/image-upload.component"
+
 
 export default class EditPost extends Component {
     constructor(props) {
@@ -9,6 +11,7 @@ export default class EditPost extends Component {
             id: this.props.match.params.id,
             title: '',
             content: "",
+            imagePath: "",
             blurb: '',
             postBy: '',
         })
@@ -20,71 +23,112 @@ export default class EditPost extends Component {
         this.onSubmit = this.onSubmit.bind(this)
     }
 
-    onChangeContent = async event => {
+    componentDidMount = async () => {
+        //const { id } = this.state
+        //const post = await api.getPostById(id)
+
+        let path = this.props.match.path
+        let id = this.props.match.params.id
+
+        Axios.get("admin/post/" + id).then(post => {
+            console.log(post)
+
+            //let post = data.data
+            this.setState({
+                title: post.data.title,
+                blurb: post.data.blurb,
+                content: post.data.content,
+                imagePath: post.data.imagePath,
+                postBy: post.data.postBy,
+            })
+        })
+
+        
+    }
+
+    imageHandler = (id, value, isValid) => {
+        this.setState({imagePath: value})
+        console.log("valyue", value)
+        console.log("value name", value.name)
+    }
+
+    onChangeContent = (event) => {
         this.setState({
             content: event.target.value
         })
     }
 
-    onChangeTitle = async event => {
+    onChangeTitle = (event) => {
         this.setState({
             title: event.target.value
         })
     }
 
-    onChangeBlurb = async event => {
+    onChangeBlurb = (event) => {
         this.setState({
             blurb: event.target.value
         })
     }
 
-    onChangePostBy = async event => {
+    onChangePostBy = (event) => {
         this.setState({
             postBy: event.target.value
         })
     }
 
-    onSubmit = async event => {
+    onSubmit = (event) => {
         //console.log
         event.preventDefault()
+
+        let path = this.props.match.path
+        let id = this.props.match.params.id
+        let date = new Date()
+
+        const { title, blurb, imagePath, content, postBy } = this.state
+
+        let payload
+
+        if (typeof (this.state.imagePath) === "object") {
+            payload = new FormData()
+            payload.append("title", title)
+            payload.append("blurb", blurb)
+            payload.append("image", imagePath)
+            payload.append("content", content)
+            payload.append("postBy", postBy)
+        } else {
+            //payload = {title, blurb, imagePath, content, postBy}
+            payload = {
+                "title": title,
+                "blurb": blurb,
+                "image": imagePath,
+                "content": content,
+                "postBy": postBy
+            }
+        }
 
         console.log("Form submitted")
         console.log(this.state.title)
         console.log(`Summary: ${this.state.blurb}`)
         console.log(this.state.content)
 
-        
-
-        const { title, blurb, content, postBy } = this.state
-        const payload = { title, blurb, content, postBy }
-
-        await api.updatePostById(this.state.id, payload).then(res => {''
-            console.log(res)
-            window.location.href = "/posts/list"
-            //window.alert(`Blog post updated successfully`)
-            this.setState({
-                title: '',
-                content: "",
-                blurb: '',
-                postBy: '',
-            })
-        })
-    }
-
-    componentDidMount = async () => {
-        const { id } = this.state
-        const post = await api.getPostById(id)
+        Axios.put("/admin/posts/" + id, payload).then(data => {
+            console.log(data)
+            window.alert("Blog post updated!")
+        }).catch(error => console.log(error))
 
         this.setState({
-            title: post.data.data.title,
-            blurb: post.data.data.blurb,
-            content: post.data.data.content,
-            postBy: post.data.data.postBy,
+            title: '',
+            content: "",
+            imagePath: "",
+            blurb: '',
+            postBy: '',
         })
     }
 
+    
+
     render() {
-        const { title, blurb, content, postBy } = this.state
+        const { title, blurb, imagePath, content, postBy } = this.state
         return (
             <div className="actionWrapper">
                 <div className="grid-container">
@@ -103,6 +147,9 @@ export default class EditPost extends Component {
                         </div>
                         <div className="cell">
                             <input type="text" placeholder="Author Name" value={postBy} onChange={this.onChangePostBy} />
+                        </div>
+                        <div className="cell">
+                            <ImageUpload id="imagePath" name="imagePath" onInput={this.imageHandler} value={this.state.imagePath} errorText="Please provide an image" />
                         </div>
                         <div className="editorWrapper cell">
                             <textarea value={content} placeholder="Write Something!" onChange={this.onChangeContent}></textarea>
