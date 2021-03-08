@@ -19,7 +19,7 @@ export default class NavBar extends Component {
                             </Link>
                         </li>
                         <li >
-                        <Link to="/blog" className="menu-link">
+                        <Link to="/blog" target="_blank" className="menu-link">
                                 View Site
                             </Link>
                         </li>

@@ -1,6 +1,8 @@
 import Axios from 'axios'
 import React, { Component } from 'react'
 import ImageUpload from "./util/image-upload.component"
+import NavBar from "../layout/navigation/navbar.component"
+
 
 
 export default class EditPost extends Component {
@@ -41,6 +43,8 @@ export default class EditPost extends Component {
                 imagePath: post.data.imagePath,
                 postBy: post.data.postBy,
             })
+
+            console.log("image", this.state.imagePath)
         })
 
         
@@ -88,6 +92,8 @@ export default class EditPost extends Component {
 
         let payload
 
+        console.log("image", imagePath)
+
         if (typeof (this.state.imagePath) === "object") {
             payload = new FormData()
             payload.append("title", title)
@@ -111,7 +117,7 @@ export default class EditPost extends Component {
         console.log(`Summary: ${this.state.blurb}`)
         console.log(this.state.content)
 
-        Axios.put("/admin/posts/" + id, payload).then(data => {
+        Axios.put("/admin/post/" + id, payload).then(data => {
             console.log(data)
             window.alert("Blog post updated!")
         }).catch(error => console.log(error))
@@ -130,7 +136,9 @@ export default class EditPost extends Component {
     render() {
         const { title, blurb, imagePath, content, postBy } = this.state
         return (
-            <div className="actionWrapper">
+            <div>
+                <NavBar/>
+                <div className="actionWrapper">
                 <div className="grid-container">
                     <div className="grid-x">
                         <h1>Edit Blog Post</h1>
@@ -163,6 +171,8 @@ export default class EditPost extends Component {
                         
                 </form>
             </div>
+            </div>
+            
             
         )
     }

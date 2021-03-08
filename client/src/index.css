@@ -23,7 +23,6 @@ body {
 }
 
 .top-bar.nav{
-    margin-top: 50px;
     background-color: #fff;
     padding: 20px 20px;
     /*background-color: rgb(14, 14, 14);*/
@@ -84,6 +83,9 @@ body {
 .content {
     color: #000;
 }
+.content .text {
+    margin-top: 3em;
+}
 .tableWrapper {
     margin-top: 70px;
 }
@@ -132,3 +134,13 @@ body {
     background: rgba(151, 151, 151, 0.67);
 }
 .tableWrapper h1 {color: #000;}
+.login h3 {
+    font-weight: 800;
+}
+.login .card {
+    border: 1px solid grey;
+    margin-top: 50%;
+}
+.login .card-section {
+    text-align: center;
+}

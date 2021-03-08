@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from "axios"
+import NavBar from "../layout/navigation/navbar.component"
 
 class UpdatePost extends Component {
     updateUser = event => {
@@ -23,6 +24,9 @@ class DeletePost extends Component {
             )
         ) {
             //api.deletePostById(this.props.id)
+            axios.delete("/admin/post/" + this.props.id).then(res => {
+                console.log(res)
+            })
             window.location.reload()
         }
     }
@@ -81,7 +85,9 @@ class PostsList extends Component {
         }
 
         return (
-            <div className="grid-container tableWrapper">
+            <div>
+                <NavBar />
+                <div className="grid-container tableWrapper">
             <div className="grid-x">
                 <h1>Your  Posts</h1>
                 <table className="hover postsLister">
@@ -98,6 +104,8 @@ class PostsList extends Component {
                 </table>
             </div>
             </div>
+            </div>
+            
         )
     }
 }

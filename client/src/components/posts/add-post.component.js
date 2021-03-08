@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from "axios"
 import ImageUpload from "./util/image-upload.component"
-
+import NavBar from "../layout/navigation/navbar.component"
 
 
 export default class AddPost extends Component {
@@ -119,6 +119,7 @@ export default class AddPost extends Component {
         //const { content } =  this.sta
         return (
             <div>
+                <NavBar />
                 <div className="actionWrapper">
                 <div className="grid-container">
                     <div className="grid-x">

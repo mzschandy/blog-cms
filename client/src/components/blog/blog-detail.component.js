@@ -52,8 +52,9 @@ export default class BlogDetail extends Component {
                 <div className="top-bar nav">
                     <div className="top-bar-left">
                         <ul className="menu">
-                            <li className=" menu-text">Notes.</li>
+                            <li className="nav menu-text">Notes.</li>
                             <li className="menu-link"><a href="/blog">Home</a></li>
+                            <li className="menu-link"><a href="/posts/list">Dashboard</a></li>
                         </ul>
                     </div>
                 </div>
@@ -65,8 +66,8 @@ export default class BlogDetail extends Component {
                             <p>By <b>{postBy}</b></p>
                         </div>
                         <div className="grid-x">
-                            <img src={imagePath} alt="post"/>
-                            <div>{content}</div>
+                            <img className="cell img" src={imagePath} alt="post"/>
+                            <div className="cell text">{content}</div>
                         </div>
                     </div>
                 </div>

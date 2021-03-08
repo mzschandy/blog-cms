@@ -66,6 +66,7 @@ export default class Blog extends Component {
                 <ul className="menu">
                     <li className="nav menu-text">Notes.</li>
                     <li className="menu-link"><a href="/blog">Home</a></li>
+                    <li className="menu-link"><a href="/posts/list">Dashboard</a></li>
                 </ul>
                 </div>
             
@@ -83,7 +84,7 @@ export default class Blog extends Component {
                 
                 <div className="wrapper">
                     <div className="grid-container wrapperInner">
-                        <div className="grid-x grid-margin-x small-up-2 medium-up-3 cardWrapper">
+                        <div className="grid-x grid-margin-x small-up-1 medium-up-3 cardWrapper">
                             {allposts}
                         </div>
                     </div>
