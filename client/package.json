@@ -2,6 +2,7 @@
     "name": "client",
     "version": "0.1.0",
     "private": true,
+    "proxy": "http://localhost:5000/api",
     "dependencies": {
         "axios": "^0.18.0",
         "bootstrap": "^4.3.1",
@@ -36,5 +37,8 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "engines": {
+        "node": "14.16.0"
     }
 }
